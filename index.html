@@ -1,416 +1,187 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bihar Board Class 10 Study App</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f0f4f8;
-      color: #222;
-    }
-
-    header {
-      background: #075e54;
-      color: white;
-      text-align: center;
-      padding: 24px 12px;
-    }
-
-    header h1 {
-      margin: 0 0 8px;
-    }
-
-    header p {
-      margin: 0;
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px;
-      background: white;
-      position: sticky;
-      top: 0;
-      box-shadow: 0 2px 5px #ddd;
-    }
-
-    button {
-      border: none;
-      border-radius: 7px;
-      padding: 11px 15px;
-      background: #087f5b;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #056044;
-    }
-
-    nav button {
-      background: #e5f5ef;
-      color: #075e54;
-    }
-
-    main {
-      max-width: 850px;
-      margin: 20px auto;
-      padding: 0 12px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      margin-bottom: 16px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px #00000010;
-    }
-
-    .subject-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .subject {
-      padding: 20px 10px;
-      text-align: center;
-      background: #e5f5ef;
-      border-radius: 10px;
-      font-weight: bold;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .question {
-      padding: 15px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .option {
-      display: block;
-      margin: 9px 0;
-      padding: 10px;
-      background: #f4f7f9;
-      border-radius: 6px;
-    }
-
-    .option input {
-      margin-right: 8px;
-    }
-
-    .correct {
-      color: #087f23;
-      font-weight: bold;
-    }
-
-    .wrong {
-      color: #c62828;
-      font-weight: bold;
-    }
-
-    select {
-      padding: 10px;
-      margin: 8px 0;
-      width: 100%;
-      max-width: 350px;
-      border-radius: 6px;
-      border: 1px solid #aaa;
-      font-size: 16px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #666;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>बिहार बोर्ड कक्षा 10 स्टडी ऐप</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f0f4f8;color:#222}
+header{background:#075e54;color:white;text-align:center;padding:22px 12px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;background:white;padding:12px;position:sticky;top:0}
+button{border:0;border-radius:8px;padding:12px 15px;background:#087f5b;color:white;font-size:16px;cursor:pointer}
+nav button,.subject{background:#e4f5ef;color:#075e54}
+main{max-width:850px;margin:20px auto;padding:0 12px}
+.card{background:white;padding:20px;margin-bottom:16px;border-radius:14px;box-shadow:0 2px 8px #0001}
+.subjects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.subject{padding:20px;font-size:18px;font-weight:bold}
+.question{padding:15px 0;border-bottom:1px solid #ddd}
+.option{display:block;background:#f1f5f9;color:#222;text-align:left;width:100%;margin:8px 0}
+.correct{background:#d1fae5!important}
+.wrong{background:#fee2e2!important}
+.hidden{display:none}
+small{color:#555}
+@media(max-width:420px){.subjects{grid-template-columns:1fr}header h1{font-size:25px}}
+</style>
 </head>
-
 <body>
-
 <header>
-  <h1>📚 बिहार बोर्ड क्लास 10</h1>
-  <p>Notes • Important Questions • MCQ Test • Model Papers</p>
+<h1>📚 बिहार बोर्ड क्लास 10</h1>
+<p>नोट्स • महत्वपूर्ण प्रश्न • MCQ टेस्ट • मॉडल पेपर</p>
 </header>
 
 <nav>
-  <button onclick="showSection('home')">होम</button>
-  <button onclick="showSection('notes')">नोट्स</button>
-  <button onclick="showSection('important')">महत्वपूर्ण प्रश्न</button>
-  <button onclick="showSection('mcq')">MCQ टेस्ट</button>
-  <button onclick="showSection('papers')">मॉडल पेपर</button>
+<button onclick="home()">होम</button>
+<button onclick="showSubjects()">विषय</button>
+<button onclick="loadMCQ()">MCQ टेस्ट</button>
+<button onclick="showPapers()">मॉडल पेपर</button>
 </nav>
 
 <main>
+<section id="home" class="card">
+<h2>स्वागत है! 🎓</h2>
+<p>कक्षा 10 की परीक्षा की तैयारी यहाँ से शुरू करें।</p>
+<div class="subjects">
+<button class="subject" onclick="showSubject('हिंदी')">📖 हिंदी</button>
+<button class="subject" onclick="showSubject('अंग्रेज़ी')">🔤 अंग्रेज़ी</button>
+<button class="subject" onclick="showSubject('गणित')">➗ गणित</button>
+<button class="subject" onclick="showSubject('विज्ञान')">🧪 विज्ञान</button>
+<button class="subject" onclick="showSubject('सामाजिक विज्ञान')">🌍 सामाजिक विज्ञान</button>
+</div>
+<p>MCQ टेस्ट देने के लिए नीचे बटन दबाएँ।</p>
+<button onclick="loadMCQ()">MCQ टेस्ट शुरू करें</button>
+</section>
 
-  <section id="home" class="card">
-    <h2>स्वागत है! 🎓</h2>
-    <p>कक्षा 10 की परीक्षा की तैयारी यहाँ से शुरू करो।</p>
+<section id="content" class="card hidden">
+<h2 id="heading"></h2>
+<div id="details"></div>
+<button onclick="home()">होम पर वापस जाएँ</button>
+</section>
 
-    <div class="subject-grid">
-      <div class="subject">📖 हिंदी</div>
-      <div class="subject">🔤 अंग्रेज़ी</div>
-      <div class="subject">➗ गणित</div>
-      <div class="subject">🧪 विज्ञान</div>
-      <div class="subject">🌍 सामाजिक विज्ञान</div>
-    </div>
-
-    <p>MCQ टेस्ट देने के लिए नीचे दिए गए बटन का उपयोग करो।</p>
-    <button onclick="showSection('mcq')">MCQ टेस्ट शुरू करें</button>
-  </section>
-
-  <section id="notes" class="card hidden">
-    <h2>📖 विषयवार नोट्स</h2>
-
-    <label for="noteSubject">विषय चुनें:</label>
-    <select id="noteSubject" onchange="showNotes()">
-      <option value="hindi">हिंदी</option>
-      <option value="english">अंग्रेज़ी</option>
-      <option value="math">गणित</option>
-      <option value="science">विज्ञान</option>
-      <option value="socialScience">सामाजिक विज्ञान</option>
-    </select>
-
-    <div id="notesContent">
-      <p>नोट्स जल्द जोड़े जाएंगे।</p>
-    </div>
-  </section>
-
-  <section id="important" class="card hidden">
-    <h2>⭐ महत्वपूर्ण प्रश्न</h2>
-
-    <label for="importantSubject">विषय चुनें:</label>
-    <select id="importantSubject" onchange="showImportant()">
-      <option value="hindi">हिंदी</option>
-      <option value="english">अंग्रेज़ी</option>
-      <option value="math">गणित</option>
-      <option value="science">विज्ञान</option>
-      <option value="socialScience">सामाजिक विज्ञान</option>
-    </select>
-
-    <div id="importantContent">
-      <p>महत्वपूर्ण प्रश्न जल्द जोड़े जाएंगे।</p>
-    </div>
-  </section>
-
-  <section id="mcq" class="card hidden">
-    <h2>📝 MCQ टेस्ट</h2>
-
-    <label for="mcqSubject">विषय चुनें:</label>
-    <select id="mcqSubject">
-      <option value="science">विज्ञान</option>
-      <option value="socialScience">सामाजिक विज्ञान</option>
-    </select>
-
-    <button onclick="startQuiz()">टेस्ट शुरू करें</button>
-
-    <p id="quizStatus"></p>
-    <div id="quizContent"></div>
-  </section>
-
-  <section id="papers" class="card hidden">
-    <h2>📄 मॉडल पेपर</h2>
-    <p>मॉडल पेपर यहाँ बाद में जोड़े जा सकते हैं।</p>
-    <p>परीक्षा की तैयारी के लिए अपने स्कूल और बिहार बोर्ड के आधिकारिक नमूना प्रश्नपत्र भी देखें।</p>
-  </section>
-
+<section id="test" class="card hidden">
+<h2>📝 MCQ टेस्ट</h2>
+<p id="status">प्रश्न लोड हो रहे हैं...</p>
+<div id="questions"></div>
+<button id="scoreButton" onclick="showScore()" class="hidden">स्कोर देखें</button>
+<div id="result"></div>
+</section>
 </main>
 
-<footer>
-  <p>बिहार बोर्ड कक्षा 10 स्टडी ऐप | पढ़ो और आगे बढ़ो! 🎯</p>
-</footer>
-
 <script>
-  let questionData = {
-    science: [],
-    socialScience: []
-  };
+let allQuestions=[];
+let selectedQuestions=[];
+let score=0;
+let answered=0;
 
-  const notes = {
-    hindi: "हिंदी के अध्यायवार नोट्स यहाँ जोड़े जाएंगे।",
-    english: "अंग्रेज़ी के अध्यायवार नोट्स यहाँ जोड़े जाएंगे।",
-    math: "गणित के सूत्र और अध्यायवार नोट्स यहाँ जोड़े जाएंगे।",
-    science: "विज्ञान के अध्यायवार नोट्स यहाँ जोड़े जाएंगे।",
-    socialScience: "सामाजिक विज्ञान के अध्यायवार नोट्स यहाँ जोड़े जाएंगे।"
-  };
-
-  const importantQuestions = {
-    hindi: ["हिंदी के महत्वपूर्ण प्रश्न जल्द जोड़े जाएंगे।"],
-    english: ["अंग्रेज़ी के महत्वपूर्ण प्रश्न जल्द जोड़े जाएंगे।"],
-    math: ["गणित के महत्वपूर्ण प्रश्न जल्द जोड़े जाएंगे।"],
-    science: ["विज्ञान के महत्वपूर्ण प्रश्न जल्द जोड़े जाएंगे।"],
-    socialScience: ["सामाजिक विज्ञान के महत्वपूर्ण प्रश्न जल्द जोड़े जाएंगे।"]
-  };
-
-  function showSection(id) {
-    document.querySelectorAll("main > section").forEach(section => {
-      section.classList.add("hidden");
-    });
-
-    document.getElementById(id).classList.remove("hidden");
+function hideAll(){
+ document.getElementById('home').classList.add('hidden');
+ document.getElementById('content').classList.add('hidden');
+ document.getElementById('test').classList.add('hidden');
+}
+function home(){
+ hideAll();
+ document.getElementById('home').classList.remove('hidden');
+ window.scrollTo(0,0);
+}
+function showSubjects(){
+ hideAll();
+ document.getElementById('content').classList.remove('hidden');
+ document.getElementById('heading').textContent='सभी विषय';
+ document.getElementById('details').innerHTML=
+ '<p>हिंदी, अंग्रेज़ी, गणित, विज्ञान और सामाजिक विज्ञान के लिए होम पेज पर विषय चुनें।</p>';
+}
+function showSubject(subject){
+ hideAll();
+ document.getElementById('content').classList.remove('hidden');
+ document.getElementById('heading').textContent=subject;
+ document.getElementById('details').innerHTML=
+ '<p>'+subject+' के नोट्स और महत्वपूर्ण प्रश्न यहाँ जोड़े जा सकते हैं।</p>'+
+ (subject==='विज्ञान'||subject==='सामाजिक विज्ञान'
+ ?'<button onclick="loadMCQ(\''+subject+'\')">इस विषय का MCQ टेस्ट</button>'
+ :'<p>इस विषय की सामग्री अभी जोड़नी बाकी है।</p>');
+}
+function showPapers(){
+ hideAll();
+ document.getElementById('content').classList.remove('hidden');
+ document.getElementById('heading').textContent='मॉडल पेपर';
+ document.getElementById('details').innerHTML=
+ '<p>मॉडल पेपर की PDF अभी अपलोड नहीं की गई है। PDF उपलब्ध होने पर उसके लिंक यहाँ जोड़े जा सकते हैं।</p>';
+}
+async function loadMCQ(subject=''){
+ hideAll();
+ document.getElementById('test').classList.remove('hidden');
+ document.getElementById('status').textContent='प्रश्न लोड हो रहे हैं...';
+ document.getElementById('questions').innerHTML='';
+ document.getElementById('result').innerHTML='';
+ document.getElementById('scoreButton').classList.add('hidden');
+ score=0; answered=0;
+ try{
+  const response=await fetch('./questions.json');
+  if(!response.ok) throw new Error('questions.json नहीं खुली');
+  const data=await response.json();
+  let science=(data.science||[]).map(q=>({...q,subject:'विज्ञान'}));
+  let social=(data.socialScience||[]).map(q=>({...q,subject:'सामाजिक विज्ञान'}));
+  allQuestions=[...science,...social];
+  selectedQuestions=subject
+   ?allQuestions.filter(q=>q.subject===subject)
+   :allQuestions;
+  if(!selectedQuestions.length){
+   document.getElementById('status').textContent='अभी इस विषय के प्रश्न नहीं मिले। questions.json में प्रश्न जोड़ें।';
+   return;
   }
-
-  function showNotes() {
-    const subject = document.getElementById("noteSubject").value;
-    document.getElementById("notesContent").textContent = notes[subject];
-  }
-
-  function showImportant() {
-    const subject = document.getElementById("importantSubject").value;
-    const content = document.getElementById("importantContent");
-
-    content.replaceChildren();
-
-    importantQuestions[subject].forEach(question => {
-      const p = document.createElement("p");
-      p.textContent = question;
-      content.appendChild(p);
-    });
-  }
-
-  async function loadQuestions() {
-    try {
-      const response = await fetch("./questions.json");
-
-      if (!response.ok) {
-        throw new Error("questions.json नहीं मिली");
-      }
-
-      const data = await response.json();
-
-      questionData.science = Array.isArray(data.science)
-        ? data.science : [];
-
-      questionData.socialScience = Array.isArray(data.socialScience)
-        ? data.socialScience : [];
-
-    } catch (error) {
-      console.error(error);
-      document.getElementById("quizStatus").textContent =
-        "प्रश्न लोड नहीं हुए। GitHub Pages पर questions.json फ़ाइल जाँचें।";
+  document.getElementById('status').textContent='कुल प्रश्न: '+selectedQuestions.length;
+  renderQuestions();
+ }catch(error){
+  document.getElementById('status').textContent=
+   'प्रश्न लोड नहीं हुए। जाँचें कि questions.json उसी फ़ोल्डर में है और JSON सही है।';
+ }
+}
+function renderQuestions(){
+ const box=document.getElementById('questions');
+ selectedQuestions.forEach((q,i)=>{
+  const item=document.createElement('div');
+  item.className='question';
+  const title=document.createElement('h3');
+  title.textContent=(i+1)+'. '+q.question;
+  item.appendChild(title);
+  (q.options||[]).forEach((option,j)=>{
+   const b=document.createElement('button');
+   b.className='option';
+   b.textContent=String.fromCharCode(65+j)+'. '+option;
+   b.onclick=()=>{
+    if(item.dataset.answered) return;
+    item.dataset.answered='yes';
+    answered++;
+    const correct=Number(q.answer);
+    if(j===correct){
+     score++;
+     b.classList.add('correct');
+     b.textContent+=' — सही उत्तर!';
+    }else{
+     b.classList.add('wrong');
+     b.textContent+=' — गलत उत्तर';
+     const buttons=item.querySelectorAll('.option');
+     if(buttons[correct]){
+      buttons[correct].classList.add('correct');
+      buttons[correct].textContent+=' — सही उत्तर!';
+     }
     }
-  }
-
-  function startQuiz() {
-    const subject = document.getElementById("mcqSubject").value;
-    const content = document.getElementById("quizContent");
-    const status = document.getElementById("quizStatus");
-
-    content.replaceChildren();
-
-    const questions = questionData[subject];
-
-    if (!questions || questions.length === 0) {
-      status.textContent =
-        "इस विषय के प्रश्न उपलब्ध नहीं हैं। questions.json फ़ाइल जाँचें।";
-      return;
+    item.querySelectorAll('button').forEach(x=>x.disabled=true);
+    if(answered===selectedQuestions.length){
+     document.getElementById('scoreButton').classList.remove('hidden');
     }
-
-    const shuffled = [...questions].sort(() => Math.random() - 0.5);
-    const quizQuestions = shuffled.slice(0, Math.min(20, shuffled.length));
-
-    status.textContent =
-      `इस टेस्ट में ${quizQuestions.length} प्रश्न हैं।`;
-
-    quizQuestions.forEach((q, index) => {
-      const box = document.createElement("div");
-      box.className = "question";
-
-      const title = document.createElement("p");
-      title.textContent = `${index + 1}. ${q.question}`;
-      box.appendChild(title);
-
-      if (!Array.isArray(q.options) ||
-          !Number.isInteger(q.answer) ||
-          q.answer < 0 ||
-          q.answer >= q.options.length) {
-        const error = document.createElement("p");
-        error.textContent = "इस प्रश्न का डेटा सही नहीं है।";
-        error.className = "wrong";
-        box.appendChild(error);
-        content.appendChild(box);
-        return;
-      }
-
-      q.options.forEach((option, optionIndex) => {
-        const label = document.createElement("label");
-        label.className = "option";
-
-        const input = document.createElement("input");
-        input.type = "radio";
-        input.name = `question-${index}`;
-        input.value = optionIndex;
-
-        label.appendChild(input);
-        label.appendChild(document.createTextNode(option));
-        box.appendChild(label);
-      });
-
-      const result = document.createElement("p");
-      result.className = "result";
-      box.appendChild(result);
-
-      box.dataset.answer = q.answer;
-      content.appendChild(box);
-    });
-
-    const submit = document.createElement("button");
-    submit.textContent = "उत्तर जाँचें";
-    submit.onclick = () => checkAnswers();
-    content.appendChild(submit);
-  }
-
-  function checkAnswers() {
-    const boxes = document.querySelectorAll("#quizContent .question");
-    let score = 0;
-    let answered = 0;
-
-    boxes.forEach(box => {
-      const answer = Number(box.dataset.answer);
-      const selected = box.querySelector("input:checked");
-      const result = box.querySelector(".result");
-
-      if (!selected) {
-        result.textContent = `उत्तर नहीं चुना। सही उत्तर: ${box.querySelectorAll("label")[answer]?.textContent || ""}`;
-        result.className = "result wrong";
-        return;
-      }
-
-      answered++;
-
-      if (Number(selected.valu4e) === answer) {
-        score++;
-        result.textContent = "सही उत्तर! ✅";
-        result.className = "result correct";
-      } else {
-        result.textContent = `गलत उत्तर। सही उत्तर: ${box.querySelectorAll("label")[answer]?.textContent || ""}`;
-        result.className = "result wrong";
-      }
-    });
-
-    document.getElementById("quizStatus").textContent =
-      `तुम्हारा स्कोर: ${score}/${boxes.length} | उत्तर दिए: ${answered}`;
-  }
-
-  loadQuestions();
-  showNotes();
-  showImportant();
+   };
+   item.appendChild(b);
+  });
+  box.appendChild(item);
+ });
+}
+function showScore(){
+ document.getElementById('result').innerHTML=
+ '<h2>आपका स्कोर: '+score+' / '+selectedQuestions.length+'</h2>'+
+ '<p>आपने '+answered+' प्रश्नों के उत्तर दिए।</p>'+
+ '<button onclick="loadMCQ()">फिर से टेस्ट दें</button>';
+}
 </script>
-
 </body>
-  </html>
+</html>
