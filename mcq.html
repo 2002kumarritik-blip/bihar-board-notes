@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bihar Board Online MCQ Test</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;padding:15px;
+ font-family:Arial,sans-serif;
+ background:#f1f5f9;color:#172033
+}
+header{
+ background:#123b70;color:white;
+ text-align:center;padding:22px;
+ border-radius:12px
+}
+.container{max-width:650px;margin:20px auto}
+.card{
+ background:white;padding:18px;
+ border-radius:12px;margin-bottom:15px;
+ box-shadow:0 2px 8px #0001
+}
+button,select{
+ width:100%;padding:13px;
+ margin:7px 0;border:0;border-radius:8px;
+ font-size:16px
+}
+button{background:#1769d2;color:white}
+.option{
+ display:block;padding:13px;
+ margin:10px 0;background:#f1f5f9;
+ border-radius:8px
+}
+.option input{margin-right:10px}
+#result{display:none;text-align:center}
+.back{background:#475569}
+</style>
+</head>
+<body>
+
+<header>
+<h2>📚 Bihar Board Notes</h2>
+<p>Class 10 Online MCQ Test</p>
+</header>
+
+<div class="container">
+
+<div class="card" id="setup">
+<h3>📝 अपना टेस्ट चुनें</h3>
+
+<select id="subject">
+<option value="science">Science (विज्ञान)</option>
+<option value="socialScience">Social Science (सामाजिक विज्ञान)</option>
+</select>
+
+<button onclick="startTest()">Start Test</button>
+<p id="status"></p>
+</div>
+
+<div class="card" id="quiz" style="display:none">
+<p id="progress"></p>
+<h3 id="question"></h3>
+<div id="options"></div>
+<button onclick="nextQuestion()">Next Question ➜</button>
+</div>
+
+<div class="card" id="result">
+<h2>🎉 आपका रिजल्ट</h2>
+<h1 id="score"></h1>
+<p id="details"></p>
+<button onclick="location.reload()">दोबारा टेस्ट दें</button>
+<a href="index.html">
+<button class="back">होम पेज पर जाएँ</button>
+</a>
+</div>
+
+</div>
+
+<script>
+let questions=[];
+let current=0;
+let selected=[];
+let subjectName="";
+
+async function startTest(){
+ const subject=document.getElementById("subject").value;
+ const status=document.getElementById("status");
+
+ status.innerText="प्रश्न लोड हो रहे हैं...";
+
+ try{
+  const response=await fetch("./questions.json");
+  if(!response.ok) throw new Error("लोड नहीं हुआ");
+
+  const data=await response.json();
+  questions=data[subject] || [];
+
+  if(!questions.length) throw new Error("प्रश्न उपलब्ध नहीं हैं");
+
+  questions.sort(()=>Math.random()-0.5);
+  selected=new Array(questions.length).fill(null);
+  current=0;
+
+  document.getElementById("setup").style.display="none";
+  document.getElementById("quiz").style.display="block";
+  showQuestion();
+
+ }catch(error){
+  status.innerText="प्रश्न लोड नहीं हुए। questions.json चेक करें।";
+ }
+}
+
+function showQuestion(){
+ const q=questions[current];
+
+ document.getElementById("progress").innerText=
+ "प्रश्न "+(current+1)+" / "+questions.length;
+
+ document.getElementById("question").innerText=q.question;
+
+ const box=document.getElementById("options");
+ box.innerHTML="";
+
+ q.options.forEach((option,index)=>{
+  const label=document.createElement("label");
+  label.className="option";
+
+  const radio=document.createElement("input");
+  radio.type="radio";
+  radio.name="answer";
+  radio.value=index;
+  radio.checked=selected[current]===index;
+
+  radio.onchange=()=>{
+   selected[current]=index;
+  };
+
+  label.appendChild(radio);
+  label.appendChild(document.createTextNode(option));
+  box.appendChild(label);
+ });
+
+ document.querySelector("#quiz button").innerText=
+ current===questions.length-1?"Submit Test":"Next Question ➜";
+}
+
+function nextQuestion(){
+ if(current===questions.length-1){
+  showResult();
+  return;
+ }
+ current++;
+ showQuestion();
+}
+
+function showResult(){
+ let correct=0;
+ let wrong=0;
+ let skipped=0;
+
+ questions.forEach((q,i)=>{
+  if(selected[i]===null) skipped++;
+  else if(selected[i]===q.answer) correct++;
+  else wrong++;
+ });
+
+ document.getElementById("quiz").style.display="none";
+ document.getElementById("result").style.display="block";
+
+ document.getElementById("score").innerText=
+ correct+" / "+questions.length;
+
+ document.getElementById("details").innerText=
+ "सही उत्तर: "+correct+
+ " | गलत उत्तर: "+wrong+
+ " | छोड़े गए: "+skipped;
+}
+</script>
+
+</body>
+  </html>
+  
