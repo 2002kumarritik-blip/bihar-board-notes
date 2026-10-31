@@ -1,261 +1,276 @@
-<!DOCTYPE html><html lang="hi">
+<!DOCTYPE html>
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>बिहार बोर्ड कक्षा 10 स्टडी ऐप</title><style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f0f4f8;color:#222}
-header{background:#075e54;color:white;text-align:center;padding:22px 12px}
-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;background:white;padding:12px;position:sticky;top:0;z-index:10}
-button{border:0;border-radius:8px;padding:12px 15px;background:#087f5b;color:white;font-size:16px;cursor:pointer}
-nav button,.subject{background:#e4f5ef;color:#075e54}
-main{max-width:850px;margin:20px auto;padding:0 12px}
-.card{background:white;padding:20px;margin-bottom:16px;border-radius:14px;box-shadow:0 2px 8px #0001}
-.subjects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.subject{padding:20px;font-size:18px;font-weight:bold}
-.pdf-list{display:grid;grid-template-columns:1fr;gap:10px;margin-top:15px}
-.pdf-link{display:block;text-decoration:none;background:#e4f5ef;color:#075e54;padding:14px;border-radius:8px;font-weight:bold;border:1px solid #b7e4d7}
-.pdf-link:hover{background:#d1fae5}
-.question{padding:15px 0;border-bottom:1px solid #ddd}
-.option{display:block;background:#f1f5f9;color:#222;text-align:left;width:100%;margin:8px 0}
-.correct{background:#d1fae5!important}
-.wrong{background:#fee2e2!important}
-.hidden{display:none}
-small{color:#555}
-@media(max-width:420px){
-.subjects{grid-template-columns:1fr}
-header h1{font-size:25px}
-.card{padding:15px}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bihar Board Notes | Class 10</title>
+
+<style>
+* {
+    box-sizing: border-box;
 }
-</style></head><body>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #172033;
+}
+
+header {
+    background: #123b70;
+    color: white;
+    text-align: center;
+    padding: 25px 12px;
+}
+
+header h1 {
+    margin: 0 0 10px;
+    font-size: 27px;
+}
+
+header p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.notice {
+    background: #fff3cd;
+    color: #664d03;
+    padding: 12px;
+    text-align: center;
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+    padding: 15px;
+}
+
+#search {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 16px;
+    margin: 5px 0 20px;
+}
+
+h2 {
+    color: #123b70;
+    border-bottom: 2px solid #dbeafe;
+    padding-bottom: 8px;
+}
+
+.card {
+    background: white;
+    padding: 16px;
+    margin-bottom: 13px;
+    border-radius: 12px;
+    box-shadow: 0 2px 7px #0000000d;
+}
+
+.card h3 {
+    margin: 0 0 8px;
+}
+
+.card p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.button {
+    display: inline-block;
+    background: #1769d2;
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 7px;
+    margin-top: 5px;
+}
+
+.button:hover {
+    background: #104d9e;
+}
+
+footer {
+    text-align: center;
+    padding: 22px 10px;
+    background: #123b70;
+    color: white;
+    margin-top: 25px;
+}
+
+.empty {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
 <header>
-<h1>📚 बिहार बोर्ड क्लास 10</h1>
-<p>नोट्स • महत्वपूर्ण प्रश्न • MCQ टेस्ट • मॉडल पेपर</p>
-</header><nav>
-<button onclick="home()">होम</button>
-<button onclick="showSubjects()">विषय</button>
-<button onclick="loadMCQ()">MCQ टेस्ट</button>
-<button onclick="showPapers()">मॉडल पेपर</button>
-</nav><main>
-<section id="home" class="card">
-<h2>स्वागत है! 🎓</h2>
-<p>कक्षा 10 की परीक्षा की तैयारी यहाँ से शुरू करें।</p><div class="subjects">
-<button class="subject" onclick="showSubject('हिंदी')">📖 हिंदी</button>
-<button class="subject" onclick="showSubject('अंग्रेज़ी')">🔤 अंग्रेज़ी</button>
-<button class="subject" onclick="showSubject('गणित')">➗ गणित</button>
-<button class="subject" onclick="showSubject('विज्ञान')">🧪 विज्ञान</button>
-<button class="subject" onclick="showSubject('सामाजिक विज्ञान')">🌍 सामाजिक विज्ञान</button>
-</div><div style="margin-top:18px">
-<a class="pdf-link" href="./MCQS.pdf" target="_blank" rel="noopener">📝 महत्वपूर्ण MCQs की PDF खोलें</a>
-</div><p>नोट्स पढ़ने के लिए विषय चुनें और MCQ टेस्ट देने के लिए टेस्ट बटन दबाएँ।</p>
-<button onclick="loadMCQ()">MCQ टेस्ट शुरू करें</button>
-</section><section id="content" class="card hidden">
-<h2 id="heading"></h2>
-<div id="details"></div>
-<button onclick="home()" style="margin-top:18px">होम पर वापस जाएँ</button>
-</section><section id="test" class="card hidden">
-<h2>📝 MCQ टेस्ट</h2>
-<p id="status">प्रश्न लोड हो रहे हैं...</p>
-<div id="questions"></div>
-<button id="scoreButton" onclick="showScore()" class="hidden">स्कोर देखें</button>
-<div id="result"></div>
-</section>
-</main><script>
-let allQuestions=[];
-let selectedQuestions=[];
-let score=0;
-let answered=0;
+    <h1>📚 Bihar Board Notes</h1>
+    <p>कक्षा 10वीं | बिहार बोर्ड परीक्षा की तैयारी</p>
+</header>
 
-const sciencePDFs=[
-{title:"अध्याय 1 — रासायनिक अभिक्रियाएँ एवं समीकरण",file:"chapter%201.pdf"},
-{title:"अध्याय 2 — अम्ल, क्षारक एवं लवण",file:"chapter%202.pdf"},
-{title:"अध्याय 3 — धातु एवं अधातु",file:"chapter%203.pdf"},
-{title:"अध्याय 4 — कार्बन एवं उसके यौगिक",file:"chapter%204.pdf"},
-{title:"अध्याय 5 — तत्वों का आवर्त वर्गीकरण",file:"chapter%205.pdf"},
-{title:"अध्याय 6 — जैव प्रक्रम",file:"chapter%206.pdf"},
-{title:"अध्याय 7 — नियंत्रण एवं समन्वय",file:"chapter%207.pdf"},
-{title:"अध्याय 8 — जीव जनन कैसे करते हैं",file:"chapter%208.pdf"},
-{title:"अध्याय 9 — आनुवंशिकता एवं जैव विकास",file:"chapter%209.pdf"},
-{title:"अध्याय 10 — प्रकाश: परावर्तन तथा अपवर्तन",file:"chapter%2010.pdf"},
-{title:"अध्याय 11 — मानव नेत्र तथा रंगबिरंगा संसार",file:"chapter%2011.pdf"},
-{title:"अध्याय 12 — विद्युत",file:"chapter%2012.pdf"},
-{title:"अध्याय 13 — विद्युत धारा के चुंबकीय प्रभाव",file:"chapter%2013.pdf"},
-{title:"अध्याय 14 — ऊर्जा के स्रोत",file:"chapter%2014.pdf"},
-{title:"अध्याय 15 — हमारा पर्यावरण",file:"chapter%2015.pdf"},
-{title:"अध्याय 16 — प्राकृतिक संसाधनों का प्रबंधन",file:"chapter%2016.pdf"}
-];
+<div class="notice">
+    सभी नोट्स और MCQs एक ही जगह पढ़ें।
+</div>
 
-function hideAll(){
- document.getElementById('home').classList.add('hidden');
- document.getElementById('content').classList.add('hidden');
- document.getElementById('test').classList.add('hidden');
-}
+<main class="container">
 
-function home(){
- hideAll();
- document.getElementById('home').classList.remove('hidden');
- window.scrollTo(0,0);
-}
+    <h2>📖 Social Science Study Material</h2>
 
-function showSubjects(){
- hideAll();
- document.getElementById('content').classList.remove('hidden');
- document.getElementById('heading').textContent='सभी विषय';
- document.getElementById('details').innerHTML=
- '<p>अपनी पसंद का विषय चुनने के लिए होम पेज पर वापस जाएँ।</p>';
-}
+    <input
+        type="search"
+        id="search"
+        placeholder="नोट्स खोजें... जैसे History, Geography, MCQs"
+        aria-label="नोट्स खोजें"
+    >
 
-function showSubject(subject){
- hideAll();
- document.getElementById('content').classList.remove('hidden');
- document.getElementById('heading').textContent=subject;
+    <div id="materials">
 
- const details=document.getElementById('details');
+        <!-- HISTORY -->
+        <section class="card">
+            <h3>🏛️ History Part 1</h3>
+            <p>इतिहास के पहले भाग के नोट्स</p>
+            <a class="button" href="History%20part%201.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
- if(subject==='विज्ञान'){
-  details.innerHTML='<p>📚 कक्षा 10 विज्ञान के अध्याय के नोट्स पढ़ने के लिए नीचे दिए गए बटन दबाएँ।</p>';
+        <section class="card">
+            <h3>🏛️ History Part 2</h3>
+            <p>इतिहास के दूसरे भाग के नोट्स</p>
+            <a class="button" href="History%20part%202.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
-  const list=document.createElement('div');
-  list.className='pdf-list';
+        <!-- GEOGRAPHY -->
+        <section class="card">
+            <h3>🌍 Geography Part 1</h3>
+            <p>भूगोल के पहले भाग के नोट्स</p>
+            <a class="button" href="Geography%20part%201.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
-  sciencePDFs.forEach(chapter=>{
-   const a=document.createElement('a');
-   a.className='pdf-link';
-   a.href='./'+chapter.file;
-   a.target='_blank';
-   a.rel='noopener';
-   a.textContent='📄 '+chapter.title+' — PDF खोलें';
-   list.appendChild(a);
-  });
+        <section class="card">
+            <h3>🌍 Geography Part 2</h3>
+            <p>भूगोल के दूसरे भाग के नोट्स</p>
+            <a class="button" href="Geography%20part%202.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
-  details.appendChild(list);
+        <section class="card">
+            <h3>🌍 Geography Part 3</h3>
+            <p>भूगोल के तीसरे भाग के नोट्स</p>
+            <a class="button" href="Geography%20part%203.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
-  const mcq=document.createElement('a');
-  mcq.className='pdf-link';
-  mcq.href='./MCQS.pdf';
-  mcq.target='_blank';
-  mcq.rel='noopener';
-  mcq.textContent='📝 महत्वपूर्ण MCQs की PDF खोलें';
-  mcq.style.marginTop='14px';
-  mcq.style.display='block';
-  details.appendChild(mcq);
+        <!-- ECONOMICS -->
+        <section class="card">
+            <h3>💰 Economics Part 1</h3>
+            <p>अर्थशास्त्र के पहले भाग के नोट्स</p>
+            <a class="button" href="Economics%20part%201.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
-  const testButton=document.createElement('button');
-  testButton.textContent='विज्ञान का ऑनलाइन MCQ टेस्ट';
-  testButton.style.marginTop='14px';
-  testButton.onclick=()=>loadMCQ('विज्ञान');
-  details.appendChild(testButton);
+        <section class="card">
+            <h3>💰 Economics Part 2</h3>
+            <p>अर्थशास्त्र के दूसरे भाग के नोट्स</p>
+            <a class="button" href="Economics%20part%202.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
- }else{
-  details.innerHTML=
-  '<p>'+subject+' के नोट्स की PDF अभी इस ऐप में नहीं जोड़ी गई है।</p>';
- }
-}
+        <section class="card">
+            <h3>💰 Economics Part 3</h3>
+            <p>अर्थशास्त्र के तीसरे भाग के नोट्स</p>
+            <a class="button" href="Economics%20part%203.pdf%20.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
-function showPapers(){
- hideAll();
- document.getElementById('content').classList.remove('hidden');
- document.getElementById('heading').textContent='मॉडल पेपर';
- document.getElementById('details').innerHTML=
- '<p>मॉडल पेपर की PDF उपलब्ध होने पर उसके लिंक यहाँ जोड़े जा सकते हैं।</p>';
-}
+        <!-- DEMOCRACY -->
+        <section class="card">
+            <h3>🏛️ Democracy Part 1</h3>
+            <p>लोकतंत्र के पहले भाग के नोट्स</p>
+            <a class="button" href="DEMOCRACY%20part%201.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
-async function loadMCQ(subject=''){
- hideAll();
- document.getElementById('test').classList.remove('hidden');
- document.getElementById('status').textContent='प्रश्न लोड हो रहे हैं...';
- document.getElementById('questions').innerHTML='';
- document.getElementById('result').innerHTML='';
- document.getElementById('scoreButton').classList.add('hidden');
- score=0;
- answered=0;
+        <section class="card">
+            <h3>🏛️ Democracy Part 2</h3>
+            <p>लोकतंत्र के दूसरे भाग के नोट्स</p>
+            <a class="button" href="DEMOCRACY%20part%202.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
- try{
-  const response=await fetch('./questions.json');
-  if(!response.ok) throw new Error('questions.json नहीं खुली');
+        <!-- DISASTER MANAGEMENT -->
+        <section class="card">
+            <h3>🌪️ आपदा प्रबंधन</h3>
+            <p>आपदा प्रबंधन के नोट्स</p>
+            <a class="button" href="%E0%A4%86%E0%A4%AA%E0%A4%A6%E0%A4%BE%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AC%E0%A4%82%E0%A4%A7%E0%A4%A8.pdf" target="_blank">
+                PDF पढ़ें
+            </a>
+        </section>
 
-  const data=await response.json();
-  let science=(data.science||[]).map(q=>({...q,subject:'विज्ञान'}));
-  let social=(data.socialScience||[]).map(q=>({...q,subject:'सामाजिक विज्ञान'}));
+        <!-- MCQS -->
+        <section class="card">
+            <h3>📝 Social Science MCQs</h3>
+            <p>परीक्षा की तैयारी के लिए महत्वपूर्ण बहुविकल्पीय प्रश्न</p>
+            <a class="button" href="social%20science%20MCQs.pdf" target="_blank">
+                MCQs पढ़ें
+            </a>
+        </section>
 
-  allQuestions=[...science,...social];
+    </div>
 
-  selectedQuestions=subject
-   ?allQuestions.filter(q=>q.subject===subject)
-   :allQuestions;
+    <div class="empty" id="empty">
+        कोई सामग्री नहीं मिली।
+    </div>
 
-  if(!selectedQuestions.length){
-   document.getElementById('status').textContent='अभी प्रश्न नहीं मिले। questions.json में प्रश्न जोड़ें।';
-   return;
-  }
+</main>
 
-  document.getElementById('status').textContent='कुल प्रश्न: '+selectedQuestions.length;
-  renderQuestions();
+<footer>
+    <p>© Bihar Board Notes</p>
+    <p>Class 10 Study Material</p>
+</footer>
 
- }catch(error){
-  document.getElementById('status').textContent=
-  'प्रश्न लोड नहीं हुए। जाँचें कि questions.json उसी फ़ोल्डर में है और JSON सही है।';
- }
-}
+<script>
+const search = document.getElementById("search");
+const cards = document.querySelectorAll(".card");
+const empty = document.getElementById("empty");
 
-function renderQuestions(){
- const box=document.getElementById('questions');
+search.addEventListener("input", function () {
+    const query = this.value.toLowerCase().trim();
+    let visible = 0;
 
- selectedQuestions.forEach((q,i)=>{
-  const item=document.createElement('div');
-  item.className='question';
+    cards.forEach(function (card) {
+        const match = card.innerText.toLowerCase().includes(query);
 
-  const title=document.createElement('h3');
-  title.textContent=(i+1)+'. '+q.question;
-  item.appendChild(title);
+        card.style.display = match ? "" : "none";
 
-  (q.options||[]).forEach((option,j)=>{
-   const b=document.createElement('button');
-   b.className='option';
-   b.textContent=String.fromCharCode(65+j)+'. '+option;
+        if (match) {
+            visible++;
+        }
+    });
 
-   b.onclick=()=>{
-    if(item.dataset.answered) return;
+    empty.style.display = visible === 0 ? "block" : "none";
+});
+</script>
 
-    item.dataset.answered='yes';
-    answered++;
-
-    const correct=Number(q.answer);
-
-    if(j===correct){
-     score++;
-     b.classList.add('correct');
-     b.textContent+=' — सही उत्तर!';
-    }else{
-     b.classList.add('wrong');
-     b.textContent+=' — गलत उत्तर';
-
-     const buttons=item.querySelectorAll('.option');
-     if(buttons[correct]){
-      buttons[correct].classList.add('correct');
-      buttons[correct].textContent+=' — सही उत्तर!';
-     }
-    }
-
-    item.querySelectorAll('button').forEach(x=>x.disabled=true);
-
-    if(answered===selectedQuestions.length){
-     document.getElementById('scoreButton').classList.remove('hidden');
-    }
-   };
-
-   item.appendChild(b);
-  });
-
-  box.appendChild(item);
- });
-}
-
-function showScore(){
- document.getElementById('result').innerHTML=
- '<h2>आपका स्कोर: '+score+' / '+selectedQuestions.length+'</h2>'+
- '<p>आपने '+answered+' प्रश्नों के उत्तर दिए।</p>'+
- '<button onclick="loadMCQ()">फिर से टेस्ट दें</button>';
-}
-</script></body>
-</html>
+</body>
+ </html>
